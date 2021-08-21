@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import ContactForm from './components/ContactForm/ContactForm';
 import Filter from './components/Filter/Filter';
 import ContactList from './components/ContactList/ContactList';
@@ -8,6 +8,10 @@ import { connect } from 'react-redux';
 import contactsActions from './redux/contacts/contacts-actions';
 
 function App({ items, filter, onAddContact, onDeleteContact, onChangeFilter }) {
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(items));
+  }, [items]);
+
   const contactsFiltred = items.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLocaleLowerCase()),
   );

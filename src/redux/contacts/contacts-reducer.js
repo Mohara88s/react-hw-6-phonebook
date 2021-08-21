@@ -1,7 +1,9 @@
 import actionTypes from './contacts-types';
 import { combineReducers } from 'redux';
 
-const items = (state = [], { type, payload }) => {
+const initialItemsState =
+  JSON.parse(window.localStorage.getItem('contacts')) || '';
+const items = (state = initialItemsState, { type, payload }) => {
   switch (type) {
     case actionTypes.ADD:
       {
