@@ -2,7 +2,7 @@ import actionTypes from './contacts-types';
 import { combineReducers } from 'redux';
 
 const initialItemsState =
-  JSON.parse(window.localStorage.getItem('contacts')) || '';
+  JSON.parse(window.localStorage.getItem('contacts')) || [];
 const items = (state = initialItemsState, { type, payload }) => {
   switch (type) {
     case actionTypes.ADD:
@@ -12,7 +12,8 @@ const items = (state = initialItemsState, { type, payload }) => {
             contactItem.name.toLowerCase() === payload.name.toLowerCase(),
         );
         if (isAvailable) {
-          return alert(`${payload.name} is already in contacts.`);
+          alert(`${payload.name} is already in contacts.`);
+          return state;
         }
       }
       return [...state, payload];
