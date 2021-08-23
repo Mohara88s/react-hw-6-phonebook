@@ -22,7 +22,6 @@ const ContactList = ({ contacts, filter }) => {
 ContactList.propTypes = {
   contacts: PropTypes.array,
   filter: PropTypes.string,
-  onDeleteContact: PropTypes.func,
 };
 
 const mapStateToProps = state => {
