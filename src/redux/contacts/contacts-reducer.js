@@ -2,10 +2,7 @@ import actions from './/contacts-actions';
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 
-const initialItemsState =
-  JSON.parse(window.localStorage.getItem('contacts')) ?? [];
-
-const items = createReducer(initialItemsState, {
+const items = createReducer([], {
   [actions.addContact]: (state, { payload }) => {
     {
       const isAvailable = state.some(
@@ -17,10 +14,6 @@ const items = createReducer(initialItemsState, {
         return state;
       }
     }
-    window.localStorage.setItem(
-      'contacts',
-      JSON.stringify([...state, payload]),
-    );
     return [...state, payload];
   },
 
