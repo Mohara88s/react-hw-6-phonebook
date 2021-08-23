@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 
 const initialItemsState =
-  JSON.parse(window.localStorage.getItem('contacts')) || [];
+  JSON.parse(window.localStorage.getItem('contacts')) ?? [];
 
 const items = createReducer(initialItemsState, {
   [actions.addContact]: (state, { payload }) => {
@@ -17,6 +17,10 @@ const items = createReducer(initialItemsState, {
         return state;
       }
     }
+    window.localStorage.setItem(
+      'contacts',
+      JSON.stringify([...state, payload]),
+    );
     return [...state, payload];
   },
 

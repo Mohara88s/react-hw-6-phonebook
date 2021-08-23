@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import styles from './ContactForm.module.css';
+import { connect } from 'react-redux';
+import contactsActions from '../../redux/contacts/contacts-actions';
+
 class ContactForm extends Component {
   state = {
     name: '',
@@ -18,7 +21,7 @@ class ContactForm extends Component {
       name: this.state.name,
       number: this.state.number,
     };
-    this.props.onSubmit(newContact);
+    this.props.onAddContact(newContact);
     this.setState({
       name: '',
       number: '',
@@ -58,13 +61,10 @@ class ContactForm extends Component {
   }
 }
 ContactForm.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }),
-  ),
-  onSubmit: PropTypes.func.isRequired,
+  onAddContact: PropTypes.func.isRequired,
 };
-export default ContactForm;
+
+const mapDispatchToProps = dispatch => ({
+  onAddContact: contact => dispatch(contactsActions.addContact(contact)),
+});
+export default connect(null, mapDispatchToProps)(ContactForm);
