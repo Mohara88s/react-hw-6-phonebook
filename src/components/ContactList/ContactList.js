@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Contact from '../Contact/Contact';
 import PropTypes from 'prop-types';
 import styles from './ContactList.module.css';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-const ContactList = ({ contacts, filter }) => {
+const ContactList = () => {
+  const contacts = useSelector(state => state.contacts.items);
+  const filter = useSelector(state => state.contacts.filter);
   return (
     <ul className={styles.ContactList}>
       {contacts
@@ -24,11 +26,4 @@ ContactList.propTypes = {
   filter: PropTypes.string,
 };
 
-const mapStateToProps = state => {
-  return {
-    contacts: state.contacts.items,
-    filter: state.contacts.filter,
-  };
-};
-
-export default connect(mapStateToProps)(ContactList);
+export default ContactList;

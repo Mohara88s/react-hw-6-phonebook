@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Contact.module.css';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import contactsActions from '../../redux/contacts/contacts-actions';
 
-const Contact = ({ id, name, number, onDeleteContact }) => {
+const Contact = ({ id, name, number }) => {
+  const dispatch = useDispatch();
+
   return (
     <>
       <p>
@@ -13,7 +15,7 @@ const Contact = ({ id, name, number, onDeleteContact }) => {
       <button
         className={styles.button}
         type="button"
-        onClick={() => onDeleteContact(id)}
+        onClick={() => dispatch(contactsActions.deleteContact(id))}
       >
         Delete
       </button>
@@ -26,9 +28,4 @@ Contact.propTypes = {
   number: PropTypes.string.isRequired,
   onDeleteContact: PropTypes.func.isRequired,
 };
-const mapDispatchToProps = dispatch => ({
-  onDeleteContact: contactId =>
-    dispatch(contactsActions.deleteContact(contactId)),
-});
-
-export default connect(null, mapDispatchToProps)(Contact);
+export default Contact;
